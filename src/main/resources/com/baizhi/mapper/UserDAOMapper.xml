@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.UserDAO">
+    <insert id="save" parameterType="com.baizhi.entity.User">
+        insert into t_user values (#{id},#{phoneNum},#{username},#{password},#{salt},#{province},#{city},#{nickName},#{gender},#{sign},#{headPic},#{status},#{userdate})
+    </insert>
+
+    <delete id="delete" parameterType="int">
+        delete from t_user  where id=#{id}
+    </delete>
+
+    <update id="update"  parameterType="com.baizhi.entity.User">
+        update t_user set phoneNum=#{phoneNum},username=#{username},password=#{password},salt=#{salt},province=#{province},city=#{city},nickName=#{nickName},gender=#{gender},
+        sign=#{sign},headPic=#{headPic},status=#{status},userdate=#{userdate}
+        where id=#{id}
+    </update>
+
+    <update id="updateStatus"  parameterType="com.baizhi.entity.User">
+        update t_user set status=#{status} where id=#{id}
+    </update>
+
+    <select id="login" resultType="com.baizhi.entity.User" parameterType="com.baizhi.entity.User">
+        select id,phoneNum,username,password,salt,province,city,nickName,gender,sign,headPic,status,userdate FROM t_user WHERE phoneNum=#{phoneNum} and password=#{password}
+    </select>
+
+    <select id="findByPage" resultType="com.baizhi.entity.User">
+        select id,phoneNum,username,password,salt,province,city,nickName,gender,sign,headPic,status,userdate from t_user limit #{start},#{rows}
+    </select>
+
+    <select id="findTotals" resultType="long">
+       select count(id) from t_user
+    </select>
+
+    <select id="queryOne"  parameterType="com.baizhi.entity.User" resultType="com.baizhi.entity.User">
+        select id,phoneNum,username,password,salt,province,city,nickName,gender,sign,headPic,status,userdate from t_user  WHERE id=#{id}
+    </select>
+
+
+
+</mapper>
